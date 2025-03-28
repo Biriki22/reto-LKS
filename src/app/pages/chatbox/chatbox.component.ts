@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
+import { TextoComponentComponent } from "../../components/texto.component/texto.component.component";
 
 @Component({
   selector: 'app-chatbox',
-  imports: [],
+  imports: [TextoComponentComponent],
   templateUrl: './chatbox.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatboxComponent { }

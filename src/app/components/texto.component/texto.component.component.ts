@@ -1,7 +1,7 @@
 import {Component } from '@angular/core';
 
 @Component({
-  selector: 'app-texto.component',
+  selector: 'chat-texto',
   imports: [],
   templateUrl: './texto.component.component.html',
 })
