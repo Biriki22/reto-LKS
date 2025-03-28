@@ -6,7 +6,7 @@ import { inject, Injectable } from '@angular/core';
 })
 export class ServicioFase1Service {
   private http = inject(HttpClient)
-  apiURL ="https://chatbot-normativa-laboral.azurewebsites.net"
+  apiURL ="https://chatbot-normativa-laboral.azurewebsites.net/Chat/Enviar"
   apiKey = ""
   constructor() { }
   postQuestion(question: string){

@@ -8,7 +8,7 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'chatbox',
-  imports: [TextoComponentComponent, HistorialAntiguoComponentComponent, RouterOutlet, SideMenuComponent, ChatComponent],
+  imports: [HistorialAntiguoComponentComponent, RouterOutlet, SideMenuComponent, ChatComponent],
 
   templateUrl: './chatbox.component.html',
 })
