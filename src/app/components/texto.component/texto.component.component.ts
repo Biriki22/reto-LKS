@@ -5,4 +5,6 @@ import {Component } from '@angular/core';
   imports: [],
   templateUrl: './texto.component.component.html',
 })
-export class TextoComponentComponent { }
+export class TextoComponentComponent {
+  
+}
