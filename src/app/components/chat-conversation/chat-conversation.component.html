@@ -2,6 +2,6 @@
 
 <div class="input-box">
   <input #messageInput type="text" placeholder="Escribe un mensaje..."
-         (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''">
+   (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''">
   <button (click)="sendMessage(messageInput.value); messageInput.value = ''">Enviar</button>
 </div>
