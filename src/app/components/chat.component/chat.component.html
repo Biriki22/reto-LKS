@@ -1,3 +1,54 @@
+<style>
+  .chat-box {
+  width: 400px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 45%;
+  height: auto;
+  margin-top: 500px;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  justify-content: center;
+}
+
+.user-message {
+  align-self: flex-end;
+  background-color: #ff6a00;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%;
+}
+
+.bot-message {
+  align-self: flex-start;
+  background-color: #e5e5ea;
+  color: black;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%;
+}
+
+.timestamp {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  text-align: right;
+  display: block;
+  margin-top: 4px;
+}
+
+</style>
+
+
 <h1>CHAT EN CURSO</h1>
 
 <div class="chat-box">
@@ -11,5 +62,5 @@
   </div>
 
   <!-- Componente de entrada de texto -->
-  <app-chat-conversation (messageSent)="handleUserMessage($event)"></app-chat-conversation>
+  <chat-texto (messageSent)="handleUserMessage($event)"></chat-texto>
 </div>

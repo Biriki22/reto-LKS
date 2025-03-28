@@ -1,6 +1,8 @@
 import { NgClass, CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ChatConversationComponent } from "../chat-conversation/chat-conversation.component";
+import { ChatboxComponent } from '../../pages/chatbox/chatbox.component';
+import { TextoComponentComponent } from "../texto.component/texto.component.component";
+
 
 interface ChatMessage {
   text: string;
@@ -10,9 +12,8 @@ interface ChatMessage {
 
 @Component({
   selector: 'app-chat',
-  imports: [NgClass, ChatConversationComponent, CommonModule],
+  imports: [NgClass, CommonModule, TextoComponentComponent],
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
 })
 export class ChatComponent {
   messages: ChatMessage[] = [];
