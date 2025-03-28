@@ -10,7 +10,7 @@ export class ServicioFase1Service {
   apiKey = ""
   constructor() { }
   postQuestion(question: string){
-    const url = '${this.apiURL}';
+    const url = `${this.apiURL}`;
     const body = {
       "question" : "",
     }
