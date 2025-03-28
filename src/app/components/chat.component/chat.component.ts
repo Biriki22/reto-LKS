@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
+<<<<<<< HEAD
 import { HttpClient } from '@angular/common/http';
 import { NgClass, CommonModule } from '@angular/common';
 import { ChatConversationComponent } from "../chat-conversation/chat-conversation.component";
+=======
+import { ChatboxComponent } from '../../pages/chatbox/chatbox.component';
+import { TextoComponentComponent } from "../texto.component/texto.component.component";
+
+>>>>>>> 599c644e4290a5e5b57c92fda40b951c5a58d6a4
 
 interface ChatMessage {
   text: string;
@@ -11,9 +17,12 @@ interface ChatMessage {
 
 @Component({
   selector: 'app-chat',
+<<<<<<< HEAD
   imports: [NgClass, CommonModule, ChatConversationComponent],
+=======
+  imports: [NgClass, CommonModule, TextoComponentComponent],
+>>>>>>> 599c644e4290a5e5b57c92fda40b951c5a58d6a4
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
 })
 export class ChatComponent {
   messages: ChatMessage[] = [];

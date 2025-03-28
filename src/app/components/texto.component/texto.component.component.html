@@ -1,2 +1,31 @@
-<input type="text" class="cuadrotexto bg-amber-400 ml-[13%] w-[80%] h-25">
-<button class="cuadrotexto bg-amber-500 w-[130px] h-25" >Enviar</button>
+<style>
+  .input-box {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  margin-left: 15%;
+}
+
+input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  background-color: #ff6a00;
+  color: white;
+  cursor: pointer;
+}
+</style>
+
+
+<div class="input-box">
+  <input #messageInput type="text" placeholder="Escribe un mensaje... "
+   (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''">
+  <button (click)="sendMessage(messageInput.value); messageInput.value = ''">Enviar</button>
+</div>
