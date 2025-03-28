@@ -18,7 +18,10 @@
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
     "@tailwindcss/postcss": "^4.0.17",
+<<<<<<< HEAD
+=======
     "@tailwindcss/vite": "^4.0.17",
+>>>>>>> 26728c1eb5c0a5651b11c820191d1b403f36b802
     "postcss": "^8.5.3",
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.0.17",
