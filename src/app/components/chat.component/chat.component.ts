@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TextoComponentComponent } from "../texto.component/texto.component.component";
 import { CommonModule, NgClass } from '@angular/common';
 import { HttpClient,HttpClientModule } from '@angular/common/http';
+import { ServicioFase1Service } from '../../services/servicio.fase1.service';
 
 
 interface ChatMessage {
@@ -19,16 +20,17 @@ export class ChatComponent {
   messages: ChatMessage[] = [];
   apiUrl = 'https://chatbot-normativa-laboral.azurewebsites.net/Chat/Enviar';
 
-  constructor(private http: HttpClient) {}
+  fase1 =inject(ServicioFase1Service);
 
   handleUserMessage(userText: string) {
         // Agregar mensaje del usuario
         this.messages.push({ text: userText, sender: 'user', timestamp: new Date() });
 
         // Enviar la consulta a la API
-        this.http.post<{ respuesta: string }>(this.apiUrl, { mensaje: userText }).subscribe(
+        this.fase1.postQuestion("Hola").subscribe(
           (response) => {
-            this.messages.push({ text: response.respuesta, sender: 'bot', timestamp: new Date() });
+            console.log(response);
+            this.messages.push({ text: 'response.anserware', sender: 'bot', timestamp: new Date() });
           },
           (error) => {
             this.messages.push({ text: 'Error al obtener respuesta del bot 😞', sender: 'bot', timestamp: new Date() });
