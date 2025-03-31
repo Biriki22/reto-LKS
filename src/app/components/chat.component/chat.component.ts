@@ -22,6 +22,15 @@ export class ChatComponent {
 
   fase1 =inject(ServicioFase1Service); //inyectamos nuestro servicio con la llamada a la api
 
+  ngOnInit() {
+    // Mensaje de bienvenida del bot al iniciar la conversación
+    this.messages.push({
+      text: '¡Hola! Soy el asistente virtual de LKS. ¿En qué puedo ayudarte hoy?',
+      sender: 'bot',
+      timestamp: new Date()
+    });
+  }
+
   handleUserMessage(userText: string) {
         // Agregar mensaje del usuario
         this.messages.push({ text: userText, sender: 'user', timestamp: new Date() }); //Mostramos el mensaje introducido por el usuario

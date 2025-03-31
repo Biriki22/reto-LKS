@@ -1,21 +1,20 @@
 <style>
   .chat-box {
   height: auto;
-  width: 10;
+  width: 75%;
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 50px;
   display: flex;
   flex-direction: column;
-  margin-left: 12%;
-  position: static;
+  margin-left: 20%;
 
 }
 
 .chat-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   max-height: auto;
   justify-content: center;
   position: static;
@@ -28,7 +27,7 @@
   color: white;
   padding: 10px;
   border-radius: 10px;
-  max-width: 70%;
+  max-width: 60%;
 }
 
 .bot-message {
@@ -37,7 +36,7 @@
   color: black;
   padding: 10px;
   border-radius: 10px;
-  max-width: 70%;
+  max-width: 60%;
 }
 
 .timestamp {
@@ -59,7 +58,7 @@
     <div *ngFor= "let msg of messages"
       [ngClass]="{'user-message': msg.sender == 'user', 'bot-message': msg.sender == 'bot'}">
       <p>{{ msg.text }}</p>
-      <span class="timestamp">{{ msg.timestamp | date:'shortTime' }}</span>
+      <span class="timestamp">{{ msg.timestamp | date:'HH:mm' }}</span>
     </div>
   </div>
 

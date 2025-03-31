@@ -13,7 +13,7 @@ export interface ChatResponse {
 
 export class ServicioFase1Service {
   private http = inject(HttpClient)
-  apiURL ="https://chatbot-normativa-laboral.azurewebsites.net/Chat/Enviar" //Url de nuestra API
+  apiURL ="https://chatbot-normativa-laboral.azurewebsites.net/Chat/Enviar"
   apiKey = ""
   constructor() { }
 

@@ -7,8 +7,8 @@
   position: fixed;
   bottom: 10px;
   padding: 10px;
-  z-index: 1000;
-  margin-left: 30%;
+  z-index: 800;
+  margin-left: 3%;
 }
 
 input {
@@ -16,7 +16,7 @@ input {
   border-radius: 5px;
   border: 1px solid #ccc;
   background-color: #ff6a00;
-  width: 600px;
+  width: 850px;
   height: 50px;
 
 }
@@ -24,6 +24,7 @@ input {
 button {
   padding: 8px;
   border-radius: 5px;
+  width: 100px;
   border: none;
   background-color: #ff6a00;
   color: white;
@@ -33,7 +34,7 @@ button {
 
 
 <div class="input-box">
-  <input #messageInput type="text" placeholder="Escribe un mensaje... "
+  <input #messageInput type="text" placeholder="Escribe tu pregunta... "
    (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''">
   <button (click)="sendMessage(messageInput.value); messageInput.value = ''">Enviar</button>
 </div>
