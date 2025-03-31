@@ -28,14 +28,9 @@ export class ChatComponent {
 
         // Enviar la consulta a la API
         this.fase1.postQuestion(userText).subscribe(
-<<<<<<< HEAD
           (response) => {
             console.log(response);
             this.messages.push({ text: response.answare, sender: 'bot', timestamp: new Date() });
-=======
-          (response:any) => {
-            this.messages.push({ text: response.answare , sender: 'bot', timestamp: new Date() });  //Mostramos el mensaje del bot
->>>>>>> 2e933a42cf71060bfc7891e076e14fd719ddc623
           },
           (error) => {
             this.messages.push({ text: 'Error al obtener respuesta del bot 😞', sender: 'bot', timestamp: new Date() }); //En caso de erros mostramos que que el bot esta dando error
