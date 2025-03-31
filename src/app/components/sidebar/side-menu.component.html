@@ -1,21 +1,66 @@
+<style>
+  .sidebar {
+  width: 250px;
+  padding: 10px;
+  background: #f1f1f1;
+}
 
-<div id="menu" class="w-[220px] bg-orange-500 min-h-screen z-10 text-slate-300 fixed left-0">
+input {
+  width: 80%; /* Ajustar ancho del input */
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-left: 6%;
+}
 
-   <!--gif sid-menu options-->
-   <div class="sidebar">
-    <h3>Historial</h3>
+button {
+  width: 80%;
+  padding: 8px;
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-left: 6%;
+}
 
-    <!-- Cuadro de texto para el título -->
-    <input [(ngModel)]="newTitle" placeholder="Título de la conversación" />
-    <button (click)="saveConversation()">Guardar</button>
+button:hover {
+  background: #0056b3;
+}
 
-    <!-- Lista de títulos guardados -->
-    <ul>
-      <li *ngFor="let conv of historyService.conversations$ | async">
-        {{ conv.title }}
-      </li>
-    </ul>
-  </div>
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+  width: 100%;
+  text-align: center; /* Centrar títulos */
+}
+
+li {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+li:hover {
+  background: #e0e0e0;
+}
 
 
-  </div>
+</style>
+
+<div id="menu" class="w-[250px] bg-orange-500 min-h-screen z-10 text-slate-300 fixed left-0">
+  <h3>Historial</h3>
+
+  <!-- Caja de texto para el título -->
+  <input type="text" [(ngModel)]="newTitle" placeholder="Escribe el título..." />
+  <button (click)="saveConversation()">Nuevo Chat</button>
+
+  <!-- Lista de conversaciones -->
+  <ul>
+    <li *ngFor="let conv of historyService.conversations$ | async">
+      {{ conv.title }}
+    </li>
+  </ul>
+</div>
