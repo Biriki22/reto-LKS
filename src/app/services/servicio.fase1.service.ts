@@ -1,6 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
+export interface ChatResponse {
+  answare: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +18,7 @@ export class ServicioFase1Service {
     const body = {
       "question" : question,
     }
-    return this.http.post(url, body);
+    return this.http.post<ChatResponse>(this.apiURL, body);
   }
 
 }

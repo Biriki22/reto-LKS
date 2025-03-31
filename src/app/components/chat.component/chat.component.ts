@@ -27,10 +27,10 @@ export class ChatComponent {
         this.messages.push({ text: userText, sender: 'user', timestamp: new Date() });
 
         // Enviar la consulta a la API
-        this.fase1.postQuestion("Hola").subscribe(
+        this.fase1.postQuestion(userText).subscribe(
           (response) => {
             console.log(response);
-            this.messages.push({ text: 'response.anserware', sender: 'bot', timestamp: new Date() });
+            this.messages.push({ text: response.answare, sender: 'bot', timestamp: new Date() });
           },
           (error) => {
             this.messages.push({ text: 'Error al obtener respuesta del bot 😞', sender: 'bot', timestamp: new Date() });
