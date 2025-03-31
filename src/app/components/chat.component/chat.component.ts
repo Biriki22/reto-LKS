@@ -17,7 +17,9 @@ interface ChatMessage {
   templateUrl: './chat.component.html',
 })
 export class ChatComponent {
-  messages: ChatMessage[] = [];
+  messages: ChatMessage[] = [
+
+  ];
   apiUrl = 'https://chatbot-normativa-laboral.azurewebsites.net/Chat/Enviar';
 
   fase1 =inject(ServicioFase1Service); //inyectamos nuestro servicio con la llamada a la api
@@ -38,7 +40,7 @@ export class ChatComponent {
         // Enviar la consulta a la API
         this.fase1.postQuestion(userText).subscribe(
           (response) => {
-            console.log(response);
+            //console.log(response);
             this.messages.push({ text: response.answare, sender: 'bot', timestamp: new Date() });
           },
           (error) => {

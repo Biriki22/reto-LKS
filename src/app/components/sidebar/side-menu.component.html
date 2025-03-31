@@ -2,7 +2,20 @@
 <div id="menu" class="w-[220px] bg-orange-500 min-h-screen z-10 text-slate-300 fixed left-0">
 
    <!--gif sid-menu options-->
-   <h2>Hola</h2>
-   <historial-antiguo />
+   <div class="sidebar">
+    <h3>Historial</h3>
+
+    <!-- Cuadro de texto para el título -->
+    <input [(ngModel)]="newTitle" placeholder="Título de la conversación" />
+    <button (click)="saveConversation()">Guardar</button>
+
+    <!-- Lista de títulos guardados -->
+    <ul>
+      <li *ngFor="let conv of historyService.conversations$ | async">
+        {{ conv.title }}
+      </li>
+    </ul>
+  </div>
+
 
   </div>
