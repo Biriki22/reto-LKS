@@ -28,7 +28,7 @@
   background-color: #ff6a00;
   color: white;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 20px 0px 20px 20px;
   max-width: 60%;
 }
 
@@ -37,16 +37,16 @@
   background-color: #e5e5ea;
   color: black;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 0px 20px 20px 20px;
   max-width: 60%;
 }
 
 .timestamp {
-  font-size: 0.75rem;
-  opacity: 0.7;
+  font-size: 0.6rem;
+  opacity: 0.9;
   text-align: right;
   display: block;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 </style>
@@ -68,3 +68,5 @@
   <!-- Componente de entrada de texto -->
   <chat-texto (messageSent)="handleUserMessage($event)"></chat-texto>
 </div>
+
+
