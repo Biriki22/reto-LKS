@@ -42,4 +42,10 @@ export class ServicioFase2Service {
       this.conversationsSubject.next([...this.conversations]);
     }
   }
+
+  deleteConversation(id: number) {
+    this.conversations = this.conversations.filter(conv => conv.id !== id);
+    this.conversationsSubject.next([...this.conversations]);
+    this.saveToLocalStorage();
+  }
 }

@@ -11,9 +11,10 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-left: 6%;
+  color: white;
 }
 
-button {
+.btn {
   width: 85%;
   padding: 8px;
   background: #007bff;
@@ -24,21 +25,24 @@ button {
   margin-left: 6%;
 }
 
-button:hover {
+.btn:hover {
   background: #0056b3;
 }
 
 ul {
   list-style: none;
   margin-top: 10px;
-  text-align: center;
 }
 
 li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 8px;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
   color: white;
+  margin-left: 2%;
 }
 
 li:hover {
@@ -54,6 +58,16 @@ h3{
   font-size: large;
 }
 
+.delete-btn {
+  cursor: pointer;
+  font-size: 1.2em;
+  color: white;
+}
+
+.delete-btn:hover {
+  color: black;
+}
+
 
 </style>
 
@@ -62,12 +76,15 @@ h3{
 
   <!-- Caja de texto para el título -->
   <input type="text" [(ngModel)]="newTitle" placeholder="Escribe el título..." />
-  <button (click)="saveConversation()">Guardar</button>
+  <button (click)="saveConversation()" class="btn">Guardar</button>
 
-  <!-- Lista de conversaciones guardadas -->
+  <!-- Lista de conversaciones con botón de eliminar -->
   <ul>
     <li *ngFor="let conv of conversations$ | async">
       {{ conv.title }}
+      <button (click)="deleteConversation(conv.id)" class="delete-btn">
+        <i class="fa-solid fa-trash-can"></i>
+      </button>
     </li>
   </ul>
 </div>

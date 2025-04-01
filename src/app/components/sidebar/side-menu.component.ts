@@ -24,5 +24,9 @@ export class SideMenuComponent {
       this.newTitle = ''; // Limpiar el input
     }
   }
+
+  deleteConversation(id: number) {
+    this.historyService.deleteConversation(id);
+  }
 }
 
