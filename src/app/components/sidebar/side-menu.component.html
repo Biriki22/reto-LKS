@@ -1,12 +1,11 @@
 <style>
   .sidebar {
-  width: 250px;
   padding: 10px;
   background: #f1f1f1;
 }
 
 input {
-  width: 80%; /* Ajustar ancho del input */
+  width: 85%;
   padding: 8px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
@@ -15,7 +14,7 @@ input {
 }
 
 button {
-  width: 80%;
+  width: 85%;
   padding: 8px;
   background: #007bff;
   color: white;
@@ -31,35 +30,43 @@ button:hover {
 
 ul {
   list-style: none;
-  padding: 0;
   margin-top: 10px;
-  width: 100%;
-  text-align: center; /* Centrar títulos */
+  text-align: center;
 }
 
 li {
   padding: 8px;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
+  color: white;
 }
 
 li:hover {
   background: #e0e0e0;
+  color: #ff6a00;
+
+}
+
+h3{
+  margin-left: 7%;
+  padding: 2%;
+  color: white;
+  font-size: large;
 }
 
 
 </style>
 
-<div id="menu" class="w-[250px] bg-orange-500 min-h-screen z-10 text-slate-300 fixed left-0">
-  <h3>Historial</h3>
+<div id="menu" class="w-[300px] bg-orange-500 min-h-screen z-10 text-slate-300 fixed left-0">
+  <h3>Historial de chat</h3>
 
   <!-- Caja de texto para el título -->
   <input type="text" [(ngModel)]="newTitle" placeholder="Escribe el título..." />
-  <button (click)="saveConversation()">Nuevo Chat</button>
+  <button (click)="saveConversation()">Guardar</button>
 
-  <!-- Lista de conversaciones -->
+  <!-- Lista de conversaciones guardadas -->
   <ul>
-    <li *ngFor="let conv of historyService.conversations$ | async">
+    <li *ngFor="let conv of conversations$ | async">
       {{ conv.title }}
     </li>
   </ul>
