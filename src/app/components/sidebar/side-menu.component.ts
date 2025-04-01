@@ -1,18 +1,22 @@
 import { Component} from '@angular/core';
 import { ServicioFase2Service } from '../../services/servicio.fase2.service';
 import { NgIf, CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Importa FormsModule
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-side-menu',
-  standalone: true, // Es un componente standalone
   templateUrl: './side-menu.component.html',
-  imports: [ FormsModule, CommonModule] // Agrega FormsModule aquí
+  imports: [ FormsModule, CommonModule]
 })
 export class SideMenuComponent {
   newTitle: string = '';
+  conversations$: any;
 
-  constructor(public historyService: ServicioFase2Service) {}
+  constructor(public readonly historyService: ServicioFase2Service) {}
+
+  ngOnInit() {
+    this.conversations$ = this.historyService.conversations$;
+  }
 
   saveConversation() {
     if (this.newTitle.trim()) {
@@ -21,3 +25,4 @@ export class SideMenuComponent {
     }
   }
 }
+
