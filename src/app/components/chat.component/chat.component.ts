@@ -39,7 +39,7 @@ export class ChatComponent {
 
         // Enviar la consulta a la API
         this.fase1.postQuestion(userText).subscribe(
-          (response) => {
+          (response: any) => {
             //console.log(response);
             this.messages.push({ text: response.answare, sender: 'bot', timestamp: new Date() });
           },
