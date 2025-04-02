@@ -1,7 +1,15 @@
 <style>
-  .sidebar {
+
+.sidebar{
+  width: 300px;
+  background-color: #ff6a00;
   padding: 10px;
-  background: #f1f1f1;
+  transition: transform 0.1s ease-in-out;
+  z-index: 10;
+  color: var(--color-slate-300);
+  left: calc(var(--spacing) * 0);
+  min-height: 100vh;
+
 }
 
 input {
@@ -68,10 +76,36 @@ h3{
   color: black;
 }
 
+/* Ocultar la barra lateral */
+.hidden {
+  transform: translateX(-300px); /* ✅ Se oculta desplazándose a la izquierda */
+  position: absolute;
+}
+
+/* Botón de ocultar/mostrar */
+.toggle-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.toggle-btn:hover {
+  background: #0056b3;
+}
 
 </style>
 
-<div id="menu" class="w-[300px] bg-orange-500 min-h-screen z-10 text-slate-300 fixed left-0">
+<!-- Botón para mostrar u ocultar la barra lateral-->
+<button class="toggle-btn" (click)="toggleSidebar()">☰</button>
+
+<div id="menu" class="sidebar" [ngClass]="{ 'hidden': !isSidebarVisible }">
   <h3>Historial de chat</h3>
 
   <!-- Caja de texto para el título -->

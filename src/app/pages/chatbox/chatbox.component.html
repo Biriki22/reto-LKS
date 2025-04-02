@@ -1,8 +1,37 @@
+<style>
+
+.app-container {
+  display: flex; /* Alinea el sidebar y el chat en fila */
+  height: 100vh; /* Ocupa toda la altura de la pantalla */
+  width: 100vw; /* Ocupa toda la anchura de la pantalla */
+  justify-content: left;
+}
+
+
+.chat-container {
+  flex-grow: 1; /* Ocupa todo el espacio restante */
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  padding: 10px;
+  overflow-y: auto;
+
+}
+</style>
+
+
+
 <head>
   <link rel="icon" type="image/x-icon" href="assets/lks-logo-positivo.ico">
 </head>
 
-<app-side-menu />
-<router-outlet />
-<app-chat />
+<div class="app-container">
+  <div class="sidebar">
+    <app-side-menu></app-side-menu>
+  </div>
+
+  <div class="chat-container">
+    <app-chat></app-chat>
+  </div>
+</div>
 
