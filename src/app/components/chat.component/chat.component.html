@@ -46,6 +46,13 @@
   margin-top: 2px;
 }
 
+.message-image {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
 </style>
 
 <div class="chat-box">
@@ -55,6 +62,7 @@
     <div *ngFor= "let msg of messages"
       [ngClass]="{'user-message': msg.sender == 'user', 'bot-message': msg.sender == 'bot'}">
       <p>{{ msg.text }}</p>
+      <img *ngIf="msg.imageUrl" [src]="msg.imageUrl" alt="Imagen del mensaje" class="message-image">
       <span class="timestamp">{{ msg.timestamp | date:'HH:mm' }}</span>
     </div>
   </div>

@@ -30,6 +30,7 @@ export class ChatComponent {
     this.messages.push({
       text: '¡Hola! Soy el asistente virtual de LKS. ¿En qué puedo ayudarte hoy?',
       sender: 'bot',
+      imageUrl: 'https://www.lksnext.com/wp-content/uploads/2020/04/lks-logo-positivo.png',
       timestamp: new Date(),
     });
   }
@@ -42,7 +43,7 @@ export class ChatComponent {
         this.fase1.postQuestion(userText).subscribe(
           (response: any) => {
             //console.log(response);
-            this.messages.push({ text: response.answare, sender: 'bot', timestamp: new Date() });
+            this.messages.push({ text: response.answare, sender: 'bot',imageUrl:'https://www.google.com/url?sa=i&url=https%3A%2F%2Fbaic.eus%2Fes%2Flks-next-sistema-inteligente-de-optimizacion-de-prensas%2F&psig=AOvVaw2po22zbujSp_xAsZd0zf03&ust=1743673842983000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNDn366JuYwDFQAAAAAdAAAAABAE', timestamp: new Date() });
           },
           (error) => {
             this.messages.push({ text: 'Error al obtener respuesta del bot 😞', sender: 'bot', timestamp: new Date() }); //En caso de erros mostramos que que el bot esta dando error
