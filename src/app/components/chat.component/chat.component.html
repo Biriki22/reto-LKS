@@ -29,14 +29,6 @@
   max-width: 60%;
 }
 
-.bot-message {
-  align-self: flex-start;
-  background-color: #e5e5ea;
-  color: black;
-  padding: 10px;
-  border-radius: 0px 20px 20px 20px;
-  max-width: 60%;
-}
 
 .timestamp {
   font-size: 0.6rem;
@@ -46,29 +38,54 @@
   margin-top: 2px;
 }
 
-.message-image {
-  max-width: 100%;
-  max-height: 200px;
-  border-radius: 10px;
-  margin-top: 5px;
+
+        .bot-message-container {
+  display: flex;
+  align-items: flex-start;
 }
 
+.bot-message {
+  align-self: flex-start;
+  background-color: #e5e5ea;
+  color: black;
+  padding: 10px;
+  border-radius: 0px 20px 20px 20px;
+  max-width: 60%;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  margin-right: 10px;
+}
 </style>
-
 <div class="chat-box">
-
   <!-- Conversación -->
   <div class="chat-container">
-    <div *ngFor= "let msg of messages"
-      [ngClass]="{'user-message': msg.sender == 'user', 'bot-message': msg.sender == 'bot'}">
-      <p>{{ msg.text }}</p>
-      <img *ngIf="msg.imageUrl" [src]="msg.imageUrl" alt="Imagen del mensaje" class="message-image">
-      <span class="timestamp">{{ msg.timestamp | date:'HH:mm' }}</span>
+    <div *ngFor="let msg of messages"
+      [ngClass]="{'user-message': msg.sender == 'user', 'bot-message-container': msg.sender == 'bot'}">
+
+      <!-- Avatar del bot (solo si el mensaje es del bot) -->
+      <ng-container *ngIf="msg.sender == 'bot'">
+        <img src="https://www.lksnext.com/wp-content/uploads/2020/04/lks-logo-positivo.png" alt="LKS Bot" class="avatar">
+      </ng-container>
+
+      <!-- Mensaje -->
+      <div class="bot-message" *ngIf="msg.sender == 'bot'">
+        <p>{{ msg.text }}</p>
+        <span class="timestamp">{{ msg.timestamp | date:'HH:mm' }}</span>
+      </div>
+
+      <!-- Mensaje del usuario -->
+      <div class="user-message" *ngIf="msg.sender == 'user'">
+        <p>{{ msg.text }}</p>
+        <span class="timestamp">{{ msg.timestamp | date:'HH:mm' }}</span>
+      </div>
+
     </div>
   </div>
 
   <!-- Componente de entrada de texto -->
   <chat-texto (messageSent)="handleUserMessage($event)"></chat-texto>
 </div>
-
-
