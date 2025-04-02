@@ -28,5 +28,11 @@ export class SideMenuComponent {
   deleteConversation(id: number) {
     this.historyService.deleteConversation(id);
   }
+
+  isSidebarVisible = true;
+
+  toggleSidebar() {
+    this.isSidebarVisible = !this.isSidebarVisible;
+  }
 }
 
