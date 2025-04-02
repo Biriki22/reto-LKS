@@ -16,6 +16,7 @@ input {
   width: 85%;
   padding: 8px;
   margin-bottom: 10px;
+  margin-top: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-left: 6%;
@@ -60,10 +61,10 @@ li:hover {
 }
 
 h3{
-  margin-left: 7%;
+  margin-left: 15%;
   padding: 2%;
   color: white;
-  font-size: large;
+  font-size: larger;
 }
 
 .delete-btn {
@@ -76,15 +77,9 @@ h3{
   color: black;
 }
 
-/* Ocultar la barra lateral */
-.hidden {
-  transform: translateX(-300px); /* ✅ Se oculta desplazándose a la izquierda */
-  position: absolute;
-}
-
 /* Botón de ocultar/mostrar */
 .toggle-btn {
-  position: absolute;
+  position: fixed; /* Cambiado de absolute a fixed */
   top: 10px;
   left: 10px;
   background: #007bff;
