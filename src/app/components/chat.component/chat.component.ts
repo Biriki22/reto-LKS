@@ -9,6 +9,7 @@ interface ChatMessage {
   text: string;
   sender: 'user' | 'bot';
   timestamp: Date;
+  imageUrl?: string;
 }
 
 @Component({
@@ -29,7 +30,7 @@ export class ChatComponent {
     this.messages.push({
       text: '¡Hola! Soy el asistente virtual de LKS. ¿En qué puedo ayudarte hoy?',
       sender: 'bot',
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
