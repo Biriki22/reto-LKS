@@ -7,7 +7,7 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'chatbox',
-  imports: [ RouterOutlet, SideMenuComponent, ChatComponent],
+  imports: [SideMenuComponent, ChatComponent],
 
   templateUrl: './chatbox.component.html',
 })
