@@ -11,12 +11,12 @@
 
 .chat-container {
   display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-height: 100vh;
-    justify-content: flex-start;
-    position: relative; /* Asegura que no flote innecesariamente */
-    overflow-y: auto; /* Agrega scroll si es necesario */
+  flex-direction: column;
+  gap: 20px;
+  max-height: 100vh;
+  justify-content: flex-start;
+  position: relative; /* Asegura que no flote innecesariamente */
+  overflow-y: auto; /* Agrega scroll si es necesario */
 
 }
 
@@ -39,7 +39,7 @@
 }
 
 
-        .bot-message-container {
+.bot-message-container {
   display: flex;
   align-items: flex-start;
 }
@@ -71,7 +71,7 @@
         <img src="https://www.lksnext.com/wp-content/uploads/2020/04/lks-logo-positivo.png" alt="LKS Bot" class="avatar">
       </ng-container>
 
-      <!-- Mensaje -->
+      <!-- Mensaje del bot-->
       <div class="bot-message" *ngIf="msg.sender == 'bot'">
         <p>{{ msg.text }}</p>
         <span class="timestamp">{{ msg.timestamp | date:'HH:mm' }}</span>

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { TextoComponentComponent } from "../texto.component/texto.component.component";
 import { CommonModule, NgClass } from '@angular/common';
-import { HttpClient,HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ServicioFase1Service } from '../../services/servicio.fase1.service';
 
 
@@ -45,8 +45,9 @@ export class ChatComponent {
             //console.log(response);
             this.messages.push({ text: response.answare, sender: 'bot',imageUrl:'https://www.google.com/url?sa=i&url=https%3A%2F%2Fbaic.eus%2Fes%2Flks-next-sistema-inteligente-de-optimizacion-de-prensas%2F&psig=AOvVaw2po22zbujSp_xAsZd0zf03&ust=1743673842983000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNDn366JuYwDFQAAAAAdAAAAABAE', timestamp: new Date() });
           },
+          //En caso de erros mostramos que que el bot esta dando error
           (error) => {
-            this.messages.push({ text: 'Error al obtener respuesta del bot 😞', sender: 'bot', timestamp: new Date() }); //En caso de erros mostramos que que el bot esta dando error
+            this.messages.push({ text: 'Error al obtener respuesta del bot 😞', sender: 'bot', timestamp: new Date() });
           }
         );
       }

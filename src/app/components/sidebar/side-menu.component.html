@@ -4,9 +4,7 @@
   width: 300px;
   background-color: #ff6a00;
   padding: 10px;
-  transition: transform 0.1s ease-in-out;
-  z-index: 10;
-  color: var(--color-slate-300);
+  color: #ff6a00;
   left: calc(var(--spacing) * 0);
   min-height: 100vh;
 
@@ -28,10 +26,9 @@ input {
   padding: 8px;
   background: #007bff;
   color: white;
-  border: none;
   cursor: pointer;
   border-radius: 4px;
-  margin-left: 6%;
+  margin-left: 9%;
 }
 
 .btn:hover {
@@ -39,7 +36,6 @@ input {
 }
 
 ul {
-  list-style: none;
   margin-top: 10px;
 }
 
@@ -79,12 +75,11 @@ h3{
 
 /* Botón de ocultar/mostrar */
 .toggle-btn {
-  position: fixed; /* Cambiado de absolute a fixed */
+  position: fixed;
   top: 10px;
   left: 10px;
-  background: #007bff;
   color: white;
-  border: none;
+  background-color: #ff6a00;
   padding: 5px 10px;
   font-size: 20px;
   cursor: pointer;
@@ -92,7 +87,7 @@ h3{
 }
 
 .toggle-btn:hover {
-  background: #0056b3;
+  background: #dd6108;
 }
 
 </style>
@@ -101,7 +96,7 @@ h3{
 <button class="toggle-btn" (click)="toggleSidebar()">☰</button>
 
 <div id="menu" class="sidebar" [ngClass]="{ 'hidden': !isSidebarVisible }">
-  <h3>Historial de chat</h3>
+  <h3>Historial de chat</h3>,
 
   <!-- Caja de texto para el título -->
   <input type="text" [(ngModel)]="newTitle" placeholder="Escribe el título...">
