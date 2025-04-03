@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Output } from '@angular/core';
 import { TextoComponentComponent } from "../texto.component/texto.component.component";
 import { CommonModule, NgClass } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ServicioFase1Service } from '../../services/servicio.fase1.service';
+import { ServicioFase2Service } from '../../services/servicio.fase2.service';
 
 
 interface ChatMessage {
@@ -18,38 +19,60 @@ interface ChatMessage {
   templateUrl: './chat.component.html',
 })
 export class ChatComponent {
-  messages: ChatMessage[] = [
-
-  ];
+  messages: ChatMessage[] = [];
   apiUrl = 'https://chatbot-normativa-laboral.azurewebsites.net/Chat/Enviar';
 
-  fase1 =inject(ServicioFase1Service); //inyectamos nuestro servicio con la llamada a la api
+  fase1 =inject(ServicioFase1Service);//inyectamos nuestro servicio con la llamada a la api
+
+  fase2 = inject(ServicioFase2Service);
+
+  conversationId: number=0; // Variable para almacenar la conversación activa
 
   ngOnInit() {
-    // Mensaje de bienvenida del bot al iniciar la conversación
     this.messages.push({
       text: '¡Hola! Soy el asistente virtual de LKS. ¿En qué puedo ayudarte hoy?',
       sender: 'bot',
       imageUrl: 'https://www.lksnext.com/wp-content/uploads/2020/04/lks-logo-positivo.png',
       timestamp: new Date(),
     });
+    // Obtener el ID de la conversación activa (puede ser el último chat o una nueva conversación)
+    this.conversationId = this.fase2.getLastConversationId() || this.fase2.createNewConversation('Nueva conversación');
   }
 
   handleUserMessage(userText: string) {
-        // Agregar mensaje del usuario
-        this.messages.push({ text: userText, sender: 'user', timestamp: new Date() }); //Mostramos el mensaje introducido por el usuario
+    if (!userText.trim() || this.conversationId === null) return;
 
-        // Enviar la consulta a la API
-        this.fase1.postQuestion(userText).subscribe(
-          (response: any) => {
-            //console.log(response);
-            this.messages.push({ text: response.answare, sender: 'bot',imageUrl:'https://www.google.com/url?sa=i&url=https%3A%2F%2Fbaic.eus%2Fes%2Flks-next-sistema-inteligente-de-optimizacion-de-prensas%2F&psig=AOvVaw2po22zbujSp_xAsZd0zf03&ust=1743673842983000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNDn366JuYwDFQAAAAAdAAAAABAE', timestamp: new Date() });
-          },
-          //En caso de erros mostramos que que el bot esta dando error
-          (error) => {
-            this.messages.push({ text: 'Error al obtener respuesta del bot 😞', sender: 'bot', timestamp: new Date() });
-          }
-        );
+    // Agregar mensaje del usuario
+    this.messages.push({ text: userText, sender: 'user', timestamp: new Date() });
+
+    // Guardar mensaje en la conversación activa
+    this.fase2.addMessageToConversation(this.conversationId, 'user', userText);
+
+    // Enviar a la API y guardar respuesta
+    this.fase1.postQuestion(userText).subscribe(
+      (response: any) => {
+        const botResponse = response.answare;
+
+        // Agregar mensaje del bot al chat
+        this.messages.push({
+          text: botResponse,
+          sender: 'bot',
+          imageUrl: 'https://www.lksnext.com/wp-content/uploads/2020/04/lks-logo-positivo.png',
+          timestamp: new Date(),
+        });
+
+        // Guardar respuesta del bot en el historial
+        this.fase2.addMessageToConversation(this.conversationId, 'bot', botResponse);
+      },
+      (error) => {
+        const errorMsg = 'Error al obtener respuesta del bot 😞';
+
+        // Mostrar error en el chat
+        this.messages.push({ text: errorMsg, sender: 'bot', timestamp: new Date() });
+
+        // Guardar error en el historial
+        this.fase2.addMessageToConversation(this.conversationId, 'bot', errorMsg);
       }
+    );
+  }
 }
-
