@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
   imports: [ FormsModule, CommonModule]
 })
 export class SideMenuComponent {
+
   newTitle: string = '';
   conversations$: any;
 

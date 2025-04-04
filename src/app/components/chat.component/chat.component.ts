@@ -4,8 +4,6 @@ import { CommonModule, NgClass } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ServicioFase1Service } from '../../services/servicio.fase1.service';
 import { ServicioFase2Service } from '../../services/servicio.fase2.service';
-
-
 interface ChatMessage {
   text: string;
   sender: 'user' | 'bot';
@@ -26,7 +24,12 @@ export class ChatComponent {
 
   fase2 = inject(ServicioFase2Service);
 
+
   conversationId: number=0; // Variable para almacenar la conversación activa
+
+  limpiarChat() {
+    this.messages = []
+  }
 
   ngOnInit() {
     this.messages.push({
@@ -38,6 +41,7 @@ export class ChatComponent {
     // Obtener el ID de la conversación activa (puede ser el último chat o una nueva conversación)
     this.conversationId = this.fase2.getLastConversationId() || this.fase2.createNewConversation('Nueva conversación');
   }
+
 
   handleUserMessage(userText: string) {
     if (!userText.trim() || this.conversationId === null) return;

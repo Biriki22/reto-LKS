@@ -59,6 +59,17 @@
   border-radius: 10px;
   margin-right: 10px;
 }
+
+.btn {
+  padding: 8px;
+  border-radius: 5px;
+  width: 7%;
+  border: none;
+  background-color: #ff6a00;
+  color: white;
+  cursor: pointer;
+  margin-left: 50%;
+}
 </style>
 <div class="chat-box">
   <!-- Conversación -->
@@ -85,7 +96,9 @@
 
     </div>
   </div>
-
   <!-- Componente de entrada de texto -->
   <chat-texto (messageSent)="handleUserMessage($event)"></chat-texto>
+  <button (click)="limpiarChat()" class="btn">Limpiar</button>
+
 </div>
+
