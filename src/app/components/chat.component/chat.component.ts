@@ -38,8 +38,6 @@ export class ChatComponent {
       imageUrl: 'https://www.lksnext.com/wp-content/uploads/2020/04/lks-logo-positivo.png',
       timestamp: new Date(),
     });
-    // Obtener el ID de la conversación activa (puede ser el último chat o una nueva conversación)
-    this.conversationId = this.fase2.getLastConversationId() || this.fase2.createNewConversation('Nueva conversación');
   }
 
 

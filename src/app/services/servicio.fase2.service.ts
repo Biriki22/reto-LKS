@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
-import { ChatComponent } from '../components/chat.component/chat.component';
 
 export interface Conversation {
   id: number;
-  title: string;
+  titulo: string;
   mensaje: { sender: string; content: string }[];
 }
 
@@ -16,79 +16,54 @@ export class ServicioFase2Service {
   private conversationsSubject = new BehaviorSubject<Conversation[]>([]);
   conversations$ = this.conversationsSubject.asObservable();
 
-  constructor() {
-    this.loadFromLocalStorage();
+  private apiUrl = 'http://localhost:3001/api/conversations'; // URL de tu API
+
+  constructor(private http: HttpClient) {
+    this.loadConversations(); // Cargar las conversaciones al iniciar
   }
 
-  addConversation(title: string) {
-    if (!title.trim()) return;
+  // Cargar las conversaciones desde la base de datos
+  loadConversations() {
+    this.http.get<Conversation[]>(this.apiUrl).subscribe((data) => {
+      this.conversations = data;
+      this.conversationsSubject.next([...this.conversations]);
+    });
+  }
+
+  // Agregar una nueva conversación (en la base de datos)
+  addConversation(titulo: string) {
+    if (!titulo.trim()) return;
 
     const newConversation: Conversation = {
-      id: this.conversations.length + 1,
-      title,
-      mensaje: [], // Inicializar el array correctamente
+      titulo, mensaje: [],
+      id: 0
     };
 
-    this.conversations.push(newConversation);
-    this.conversationsSubject.next([...this.conversations]);
-    this.saveToLocalStorage();
+    // Enviar la nueva conversación al backend
+    this.http.post<Conversation>(this.apiUrl, newConversation).subscribe((createdConversation) => {
+      this.conversations.push(createdConversation);
+      this.conversationsSubject.next([...this.conversations]);
+    });
   }
 
-  addMessage(conversationId: number, sender: string, content: string) {
-    const conversation = this.conversations.find(conv => conv.id === conversationId);
-    if (!conversation) return;
-
-    // Agregar el mensaje al array
-    conversation.mensaje.push({ sender, content });
-
-    // Actualizar la lista de conversaciones
-    this.conversationsSubject.next([...this.conversations]);
-    this.saveToLocalStorage();
-  }
-
+  // Agregar un mensaje a una conversación
   addMessageToConversation(conversationId: number, sender: 'user' | 'bot', content: string) {
     const conversation = this.conversations.find(conv => conv.id === conversationId);
     if (conversation) {
       conversation.mensaje.push({ sender, content });
-      this.conversationsSubject.next([...this.conversations]);
-      this.saveToLocalStorage();
-    }
-  }
 
-  getLastConversationId(): number | null {
-    return this.conversations.length > 0 ? this.conversations[this.conversations.length - 1].id : null;
-  }
+      // Actualizar la conversación en el backend (opcional)
+      this.http.put(`${this.apiUrl}/${conversationId}`, conversation).subscribe();
 
-  createNewConversation(title: string): number {
-    const newConversation: Conversation = {
-      id: this.conversations.length + 1,
-      title,
-      mensaje: [],
-    };
-
-    this.conversations.push(newConversation);
-    this.conversationsSubject.next([...this.conversations]);
-    this.saveToLocalStorage();
-
-    return newConversation.id;
-  }
-
-
-  private saveToLocalStorage() {
-    localStorage.setItem('conversations', JSON.stringify(this.conversations));
-  }
-
-  private loadFromLocalStorage() {
-    const storedData = localStorage.getItem('conversations');
-    if (storedData) {
-      this.conversations = JSON.parse(storedData);
       this.conversationsSubject.next([...this.conversations]);
     }
   }
 
+  // Eliminar una conversación
   deleteConversation(id: number) {
-    this.conversations = this.conversations.filter(conv => conv.id !== id);
-    this.conversationsSubject.next([...this.conversations]);
-    this.saveToLocalStorage();
+    this.http.delete(`${this.apiUrl}/${id}`).subscribe(() => {
+      this.conversations = this.conversations.filter(conv => conv.id !== id);
+      this.conversationsSubject.next([...this.conversations]);
+    });
   }
 }
