@@ -89,13 +89,12 @@ h3{
 .toggle-btn:hover {
   background: #dd6108;
 }
-
 </style>
 
 <!-- Botón para mostrar u ocultar la barra lateral-->
 <button class="toggle-btn" (click)="toggleSidebar()">☰</button>
 
-<div *ngIf="isSidebarVisible" style="background-color: #ff6600; padding: 20px; color: white;">
+<div class="menulateral" *ngIf="isSidebarVisible" style="background-color: #ff6600; padding: 20px; color: white; min-height: 100vh;">
   <h3>Conversaciones</h3>
 
   <input [(ngModel)]="newTitle" placeholder="Nuevo título..." style="width: 100%; padding: 8px; margin-bottom: 10px;" />
