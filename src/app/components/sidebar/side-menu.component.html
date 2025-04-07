@@ -95,20 +95,19 @@ h3{
 <!-- Botón para mostrar u ocultar la barra lateral-->
 <button class="toggle-btn" (click)="toggleSidebar()">☰</button>
 
-<div id="menu" class="sidebar" [ngClass]="{ 'hidden': !isSidebarVisible }">
-  <h3>Historial de chat</h3>,
+<div *ngIf="isSidebarVisible" style="background-color: #ff6600; padding: 20px; color: white;">
+  <h3>Conversaciones</h3>
 
-  <!-- Caja de texto para el título -->
-  <input type="text" [(ngModel)]="newTitle" placeholder="Escribe el título...">
-  <button (click)="saveConversation()" class="btn">Guardar</button>
+  <input [(ngModel)]="newTitle" placeholder="Nuevo título..." style="width: 100%; padding: 8px; margin-bottom: 10px;" />
+  <button (click)="saveConversation()" style="width: 100%; background: #007bff; color: white; border: none; padding: 10px; border-radius: 5px;">
+    Guardar
+  </button>
 
-  <!-- Lista de conversaciones con botón de eliminar -->
-  <ul>
-    <li *ngFor="let conv of conversations$ | async">
-      {{ conv.title }}
-      <button (click)="deleteConversation(conv.id)" class="delete-btn">
-        <i class="fa-solid fa-trash-can"></i>
-      </button>
-    </li>
-  </ul>
+  <div *ngFor="let conv of conversations$ | async"
+       (click)="seleccionarConversacionId(conv.id)"
+       [style.fontWeight]="conv.id === selectedConversationId ? 'bold' : 'normal'"
+       style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; cursor: pointer; border-bottom: 1px solid white;">
+    <span>{{ conv.titulo }}</span>
+    <button (click)="deleteConversation(conv.id); $event.stopPropagation()" style="background: none; border: none; color: white; font-size: 16px;">🗑️</button>
+  </div>
 </div>

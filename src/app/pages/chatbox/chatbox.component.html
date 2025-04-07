@@ -27,11 +27,11 @@
 
 <div class="app-container">
   <div class="sidebar">
-    <app-side-menu></app-side-menu>
+    <app-side-menu (seleccionarConversacion)="chatRef.cargarMensajes($event)"></app-side-menu>
   </div>
 
   <div class="chat-container">
-    <app-chat></app-chat>
+    <app-chat #chatRef></app-chat>
   </div>
 </div>
 

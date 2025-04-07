@@ -1,44 +1,47 @@
-import { Component} from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ServicioFase2Service } from '../../services/servicio.fase2.service';
-import { NgIf, CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+// ...
 
 @Component({
   selector: 'app-side-menu',
   templateUrl: './side-menu.component.html',
-  imports: [ FormsModule, CommonModule]
+  imports: [FormsModule, CommonModule]
 })
 export class SideMenuComponent {
+  @Output() seleccionarConversacion = new EventEmitter<number>(); // <-- nuevo
 
   newTitle: string = '';
   conversations$: any;
+  selectedConversationId: number | null = null; // Para resaltar el activo
 
   constructor(public readonly historyService: ServicioFase2Service) {}
 
-  // Método que se ejecuta al inicializar el componente
   ngOnInit() {
     this.conversations$ = this.historyService.conversations$;
   }
 
-  // Método para guardar una nueva conversación
   saveConversation() {
     if (this.newTitle.trim()) {
       this.historyService.addConversation(this.newTitle);
-      this.newTitle = ''; // Limpiar el input
+      this.newTitle = '';
     }
   }
 
-  // Método para eliminar una conversación por su ID
   deleteConversation(id: number) {
     this.historyService.deleteConversation(id);
+    if (this.selectedConversationId === id) {
+      this.selectedConversationId = null;
+    }
   }
 
-  //Metodo para mostrar y ocultar el sidebar
-  // Se inicializa en true para que el sidebar esté visible al cargar la página
-  isSidebarVisible = true;
+  seleccionarConversacionId(id: number) {
+    this.selectedConversationId = id;
+    this.seleccionarConversacion.emit(id); // 🔥 Emitir al padre
+  }
 
-  // Método para alternar la visibilidad del sidebar
-  // Se utiliza el operador ! para cambiar el valor de isSidebarVisible entre true y false
+  isSidebarVisible = true;
   toggleSidebar() {
     this.isSidebarVisible = !this.isSidebarVisible;
   }

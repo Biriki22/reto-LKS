@@ -15,7 +15,7 @@ const pool = mysql.createPool({
   password: 'reto123',
   database: 'ver_historial',
   waitForConnections: true,
-  connectionLimit: 10,  // Limita el número de conexiones activas
+  connectionLimit: 10,
   queueLimit: 0
 });
 
@@ -25,11 +25,11 @@ pool.getConnection((err, connection) => {
     console.error('❌ Error conectando a la base de datos:', err.message);
   } else {
     console.log('✅ Conexión a la base de datos exitosa');
-    connection.release(); // Liberar la conexión de prueba
+    connection.release();
   }
 });
 
-// 🔹 Endpoint de prueba para ver si Express está activo
+// 🔹 Endpoint de prueba
 app.get('/api/test', (req, res) => {
   console.log('📥 Petición recibida en /api/test');
   res.json({ message: 'El servidor está funcionando correctamente' });
@@ -37,25 +37,12 @@ app.get('/api/test', (req, res) => {
 
 // 🔹 Obtener todas las conversaciones
 app.get('/api/conversations', (req, res) => {
-  console.log('📥 Petición GET en /api/conversations');
-
-  pool.getConnection((err, connection) => {
+  pool.query('SELECT * FROM conversations', (err, results) => {
     if (err) {
-      console.error('❌ Error al obtener la conexión:', err.message);
-      return res.status(500).json({ message: 'Error al obtener la conexión a la base de datos', error: err.message });
+      console.error('❌ Error al obtener conversaciones:', err.message);
+      return res.status(500).json({ message: 'Error al obtener las conversaciones', error: err.message });
     }
-
-    connection.query('SELECT * FROM conversations', (err, results) => {
-      connection.release(); // Liberar la conexión después de usarla
-
-      if (err) {
-        console.error('❌ Error al obtener conversaciones:', err.message);
-        return res.status(500).json({ message: 'Error al obtener las conversaciones', error: err.message });
-      }
-
-      console.log('✅ Conversaciones obtenidas:', results.length);
-      res.json(results);
-    });
+    res.json(results);
   });
 });
 
@@ -69,27 +56,16 @@ app.post('/api/conversations', (req, res) => {
 
   const query = 'INSERT INTO conversations (titulo) VALUES (?)';
 
-  pool.getConnection((err, connection) => {
+  pool.query(query, [titulo], (err, result) => {
     if (err) {
-      console.error('❌ Error al obtener la conexión:', err.message);
-      return res.status(500).json({ message: 'Error al obtener la conexión a la base de datos', error: err.message });
+      console.error('❌ Error al insertar la conversación:', err.message);
+      return res.status(500).json({ message: 'Error al agregar la conversación', error: err.message });
     }
-
-    connection.query(query, [titulo], (err, result) => {
-      connection.release(); // Liberar la conexión después de usarla
-
-      if (err) {
-        console.error('❌ Error al insertar la conversación:', err.message);
-        return res.status(500).json({ message: 'Error al agregar la conversación', error: err.message });
-      }
-
-      console.log('✅ Conversación insertada con ID:', result.insertId);
-      res.status(201).json({ id: result.insertId, titulo });
-    });
+    res.status(201).json({ id: result.insertId, titulo });
   });
 });
 
-// 🔹 Eliminar una conversación por ID
+// 🔹 Eliminar una conversación
 app.delete('/api/conversations/:id', (req, res) => {
   const { id } = req.params;
 
@@ -99,27 +75,54 @@ app.delete('/api/conversations/:id', (req, res) => {
 
   const query = 'DELETE FROM conversations WHERE id = ?';
 
-  pool.getConnection((err, connection) => {
+  pool.query(query, [id], (err, result) => {
     if (err) {
-      console.error('❌ Error al obtener la conexión:', err.message);
-      return res.status(500).json({ message: 'Error al obtener la conexión a la base de datos', error: err.message });
+      console.error('❌ Error al eliminar conversación:', err.message);
+      return res.status(500).json({ message: 'Error al eliminar la conversación', error: err.message });
     }
 
-    connection.query(query, [id], (err, result) => {
-      connection.release(); // Liberar la conexión después de usarla
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: 'Conversación no encontrada' });
+    }
 
-      if (err) {
-        console.error('❌ Error al eliminar conversación:', err.message);
-        return res.status(500).json({ message: 'Error al eliminar la conversación', error: err.message });
-      }
+    res.status(204).send();
+  });
+});
 
-      if (result.affectedRows === 0) {
-        return res.status(404).json({ message: 'Conversación no encontrada' });
-      }
+// 🔹 Insertar un mensaje en una conversación
+app.post('/api/conversations/:id/messages', (req, res) => {
+  const { id } = req.params;
+  const { sender, content } = req.body;
 
-      console.log(`✅ Conversación con ID ${id} eliminada`);
-      res.status(204).send();
-    });
+  if (!sender || !content) {
+    return res.status(400).json({ message: 'Sender y content son obligatorios' });
+  }
+
+  const query = 'INSERT INTO messages (conversation_id, sender, content) VALUES (?, ?, ?)';
+
+  pool.query(query, [id, sender, content], (err, result) => {
+    if (err) {
+      console.error('❌ Error al insertar mensaje:', err.message);
+      return res.status(500).json({ message: 'Error al agregar el mensaje', error: err.message });
+    }
+
+    res.status(201).json({ id: result.insertId, sender, content });
+  });
+});
+
+// 🔹 Obtener todos los mensajes de una conversación
+app.get('/api/conversations/:id/messages', (req, res) => {
+  const { id } = req.params;
+
+  const query = 'SELECT * FROM messages WHERE conversation_id = ? ORDER BY timestamp ASC';
+
+  pool.query(query, [id], (err, results) => {
+    if (err) {
+      console.error('❌ Error al obtener mensajes:', err.message);
+      return res.status(500).json({ message: 'Error al obtener los mensajes', error: err.message });
+    }
+
+    res.json(results);
   });
 });
 
