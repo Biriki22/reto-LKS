@@ -3,14 +3,14 @@
 .sidebar{
   flex: 0 0 300px;
   background-color: #ff6a00;
-  padding: 10px;
+  padding: 20px;
   color: #ff6a00;
   min-height: 100vh;
 
 }
 
 input {
-  width: 85%;
+  width: 100%;
   padding: 8px;
   margin-bottom: 10px;
   margin-top: 10px;
@@ -19,18 +19,17 @@ input {
   color: white;
 }
 
-.btn {
-  width: 85%;
+.save-btn {
+  width: 100%;
   padding: 8px;
   background: #007bff;
   color: white;
   cursor: pointer;
   border-radius: 4px;
-  margin-left: 9%;
 }
 
-.btn:hover {
-  background: #0056b3;
+.save-btn:hover {
+  background: #c3cdd7;
 }
 
 ul {
@@ -91,11 +90,11 @@ h3{
 <!-- Botón para mostrar u ocultar la barra lateral-->
 <button class="toggle-btn" (click)="toggleSidebar()">☰</button>
 
-<div class="menulateral" *ngIf="isSidebarVisible" style="background-color: #ff6600; padding: 20px; color: white; min-height: 100vh;">
+<div class="sidebar" *ngIf="isSidebarVisible" >
   <h3>Historial</h3>
 
-  <input [(ngModel)]="newTitle" placeholder="Nuevo título..." style="width: 100%; padding: 8px; margin-bottom: 10px;" />
-  <button (click)="saveConversation()" style="width: 100%; background: #007bff; color: white; border: none; padding: 10px; border-radius: 5px;">
+  <input [(ngModel)]="newTitle" placeholder="Nuevo título..."/>
+  <button class="save-btn" (click)="saveConversation()">
     Guardar
   </button>
 

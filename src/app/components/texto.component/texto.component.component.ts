@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Output } from '@angular/core';
+
+import {Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'chat-texto',
@@ -7,7 +8,6 @@ import {Component, EventEmitter, Output } from '@angular/core';
 })
 export class TextoComponentComponent {
   @Output() messageSent = new EventEmitter<string>(); // Emitirá mensajes al componente padre
-
 
   sendMessage(userText: string) {
     if (!userText.trim()) return;

@@ -4,7 +4,6 @@ import { CommonModule, NgClass } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ServicioFase1Service } from '../../services/servicio.fase1.service';
 import { ServicioFase2Service } from '../../services/servicio.fase2.service';
-import { SideMenuComponent } from "../sidebar/side-menu.component";
 
 interface ChatMessage {
   text: string;
@@ -16,7 +15,7 @@ interface ChatMessage {
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [NgClass, CommonModule, TextoComponentComponent, HttpClientModule, SideMenuComponent],
+  imports: [NgClass, CommonModule, TextoComponentComponent, HttpClientModule,],
   templateUrl: './chat.component.html',
 })
 export class ChatComponent {
