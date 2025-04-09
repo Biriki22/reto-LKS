@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { TextoComponentComponent } from "../texto.component/texto.component.component";
 import { CommonModule, NgClass } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ServicioFase1Service } from '../../services/servicio.fase1.service';
 import { ServicioFase2Service } from '../../services/servicio.fase2.service';
+import { TextoComponentComponent } from "../texto.component/texto.component.component";
 
 interface ChatMessage {
   text: string;
@@ -15,10 +15,13 @@ interface ChatMessage {
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [NgClass, CommonModule, TextoComponentComponent, HttpClientModule,],
+  imports: [NgClass, CommonModule, HttpClientModule, TextoComponentComponent],
   templateUrl: './chat.component.html',
 })
 export class ChatComponent {
+sendMessage(arg0: string) {
+throw new Error('Method not implemented.');
+}
   messages: ChatMessage[] = [];
   apiUrl = 'https://chatbot-normativa-laboral.azurewebsites.net/Chat/Enviar';
 
