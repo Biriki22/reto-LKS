@@ -11,8 +11,8 @@ app.use(express.json()); // Permite leer JSON en el body
 // Crear una conexión con pool para mejor rendimiento
 const pool = mysql.createPool({
   host: 'localhost',
-  user: 'root',
-  password: 'reto123',
+  user: 'Markel',
+  password: 'Markel123',
   database: 'ver_historial',
   waitForConnections: true,
   connectionLimit: 10,
