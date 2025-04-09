@@ -1,23 +1,30 @@
 <style>
   .chat-box {
-  width: 95%;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
+  width: 97%;
   margin: 20px;
+  margin-bottom: 80px;
 }
 
 .chat-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-height: 100vh;
-  justify-content: flex-start;
-  position: relative; /* Asegura que no flote innecesariamente */
-  overflow-y: auto; /* Agrega scroll si es necesario */
+}
 
+.fecha {
+  font-size: 0.6rem;
+  opacity: 0.9;
+  text-align: right;
+  display: block;
+  margin-top: 2px;
+}
+
+.fechauser {
+  font-size: 0.6rem;
+  opacity: 0.9;
+  text-align: left;
+  display: block;
+  margin-top: 2px;
 }
 
 .user-message {
@@ -28,16 +35,6 @@
   border-radius: 20px 0px 20px 20px;
   max-width: 60%;
 }
-
-
-.fecha {
-  font-size: 0.6rem;
-  opacity: 0.9;
-  text-align: right;
-  display: block;
-  margin-top: 2px;
-}
-
 
 .bot-message-container {
   display: flex;
@@ -51,6 +48,7 @@
   padding: 10px;
   border-radius: 0px 20px 20px 20px;
   max-width: 60%;
+  text-align: justify;
 }
 
 .avatar {
@@ -60,16 +58,6 @@
   margin-right: 10px;
 }
 
-.btn {
-  padding: 8px;
-  border-radius: 5px;
-  width: 7%;
-  border: none;
-  background-color: #ff6a00;
-  color: white;
-  cursor: pointer;
-  margin-left: 50%;
-}
 
 </style>
 <div class="chat-box">
@@ -92,11 +80,10 @@
       <!-- Mensaje del usuario -->
       <div class="user-message" *ngIf="msg.sender == 'user'">
         <p>{{ msg.text }}</p>
-        <span class="fecha">{{ msg.fecha | date:'HH:mm' }}</span>
+        <span class="fechauser">{{ msg.fecha | date:'HH:mm' }}</span>
       </div>
 
     </div>
   </div>
   <!-- Componente de entrada de texto -->
   <chat-texto (messageSent)="handleUserMessage($event)"></chat-texto>
-  <!-- <button (click)="limpiarChat()" class="btn">Limpiar</button> -->
