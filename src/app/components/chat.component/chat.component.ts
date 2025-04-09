@@ -8,7 +8,7 @@ import { TextoComponentComponent } from "../texto.component/texto.component.comp
 interface ChatMessage {
   text: string;
   sender: 'user' | 'bot';
-  timestamp: Date;
+  fecha: Date;
   imageUrl?: string;
 }
 
@@ -35,7 +35,7 @@ throw new Error('Method not implemented.');
       text: '¡Hola! Soy el asistente virtual de LKS. ¿En qué puedo ayudarte hoy?',
       sender: 'bot',
       imageUrl: 'https://www.lksnext.com/wp-content/uploads/2020/04/lks-logo-positivo.png',
-      timestamp: new Date(),
+      fecha: new Date(),
     });
   }
 
@@ -52,7 +52,7 @@ throw new Error('Method not implemented.');
       this.messages = msgs.map(msg => ({
         text: msg.content,
         sender: msg.sender,
-        timestamp: new Date(msg.timestamp),
+        fecha: new Date(msg.fecha),
         imageUrl: msg.sender === 'bot' ? 'https://www.lksnext.com/wp-content/uploads/2020/04/lks-logo-positivo.png' : undefined
       }));
     });
@@ -62,7 +62,7 @@ throw new Error('Method not implemented.');
     if (!userText.trim() || this.conversationId === null) return;
 
     // Agregar mensaje del usuario
-    this.messages.push({ text: userText, sender: 'user', timestamp: new Date() });
+    this.messages.push({ text: userText, sender: 'user', fecha: new Date() });
 
     // Guardar mensaje en la conversación activa
     this.fase2.addMessageToConversation(this.conversationId, 'user', userText);
@@ -76,7 +76,7 @@ throw new Error('Method not implemented.');
           text: botResponse,
           sender: 'bot',
           imageUrl: 'https://www.lksnext.com/wp-content/uploads/2020/04/lks-logo-positivo.png',
-          timestamp: new Date(),
+          fecha: new Date(),
         });
 
         this.fase2.addMessageToConversation(this.conversationId, 'bot', botResponse);
@@ -84,7 +84,7 @@ throw new Error('Method not implemented.');
       (error) => {
         const errorMsg = 'Error al obtener respuesta del bot 😞';
 
-        this.messages.push({ text: errorMsg, sender: 'bot', timestamp: new Date() });
+        this.messages.push({ text: errorMsg, sender: 'bot', fecha: new Date() });
 
         this.fase2.addMessageToConversation(this.conversationId, 'bot', errorMsg);
       }

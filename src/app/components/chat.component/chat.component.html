@@ -30,7 +30,7 @@
 }
 
 
-.timestamp {
+.fecha {
   font-size: 0.6rem;
   opacity: 0.9;
   text-align: right;
@@ -86,13 +86,13 @@
       <!-- Mensaje del bot-->
       <div class="bot-message" *ngIf="msg.sender == 'bot'">
         <p>{{ msg.text }}</p>
-        <span class="timestamp">{{ msg.timestamp | date:'HH:mm' }}</span>
+        <span class="fecha">{{ msg.fecha | date:'HH:mm' }}</span>
       </div>
 
       <!-- Mensaje del usuario -->
       <div class="user-message" *ngIf="msg.sender == 'user'">
         <p>{{ msg.text }}</p>
-        <span class="timestamp">{{ msg.timestamp | date:'HH:mm' }}</span>
+        <span class="fecha">{{ msg.fecha | date:'HH:mm' }}</span>
       </div>
 
     </div>

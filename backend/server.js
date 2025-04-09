@@ -114,7 +114,7 @@ app.post('/api/conversations/:id/messages', (req, res) => {
 app.get('/api/conversations/:id/messages', (req, res) => {
   const { id } = req.params;
 
-  const query = 'SELECT * FROM messages WHERE conversation_id = ? ORDER BY timestamp ASC';
+  const query = 'SELECT * FROM messages WHERE conversation_id = ? ORDER BY fecha ASC';
 
   pool.query(query, [id], (err, results) => {
     if (err) {
