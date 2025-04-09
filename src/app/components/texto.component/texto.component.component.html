@@ -30,8 +30,16 @@ button {
 
 </style>
 
+<!-- Contenedor de la caja de entrada de texto -->
 <div class="input-box">
-  <input #messageInput type="text" placeholder="Escribe tu pregunta... "
-   (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''">
-  <button (click)="sendMessage(messageInput.value); messageInput.value = ''">Enviar</button>
+  <!-- Campo de entrada de texto -->
+  <input
+    #messageInput
+    type="text"
+    placeholder="Escribe tu pregunta... "
+    (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''">
+    <!--sendMessage(messageInput.value): Llama a la función sendMessage() con el texto ingresado como argumento.-->
+
+  <!-- Botón para enviar el mensaje -->
+  <button (click)="sendMessage(messageInput.value); messageInput.value = ''"> Enviar </button>
 </div>
