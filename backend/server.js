@@ -46,7 +46,7 @@ app.get('/api/conversations', (req, res) => {
   });
 });
 
-// 🔹 Insertar una nueva conversación
+// 🔹 Insertar una nueva conversación + mensaje de bienvenida
 app.post('/api/conversations', (req, res) => {
   const { titulo } = req.body;
 
@@ -54,16 +54,46 @@ app.post('/api/conversations', (req, res) => {
     return res.status(400).json({ message: 'El título es obligatorio' });
   }
 
-  const query = 'INSERT INTO conversations (titulo) VALUES (?)';
+  const insertConversation = 'INSERT INTO conversations (titulo) VALUES (?)';
 
-  pool.query(query, [titulo], (err, result) => {
+  pool.query(insertConversation, [titulo], (err, result) => {
     if (err) {
       console.error('❌ Error al insertar la conversación:', err.message);
       return res.status(500).json({ message: 'Error al agregar la conversación', error: err.message });
     }
-    res.status(201).json({ id: result.insertId, titulo });
+
+    const conversationId = result.insertId;
+
+    // Mensaje de bienvenida con imagen
+    const welcomeMessage = {
+      sender: 'bot',
+      content: '¡Hola! Soy el asistente virtual de LKS. ¿En qué puedo ayudarte hoy?',
+      image_url: 'https://www.lksnext.com/wp-content/uploads/2020/04/lks-logo-positivo.png'
+    };
+
+    const insertWelcomeMessage = `
+      INSERT INTO messages (conversation_id, sender, content, image_url, timestamp)
+      VALUES (?, ?, ?, ?, NOW())
+    `;
+
+    pool.query(
+      insertWelcomeMessage,
+      [conversationId, welcomeMessage.sender, welcomeMessage.content, welcomeMessage.image_url],
+      (err2) => {
+        if (err2) {
+          console.error('❌ Error al insertar mensaje de bienvenida:', err2.message);
+          return res.status(500).json({
+            message: 'Conversación creada, pero falló el mensaje de bienvenida',
+            error: err2.message
+          });
+        }
+
+        res.status(201).json({ id: conversationId, titulo });
+      }
+    );
   });
 });
+
 
 // 🔹 Eliminar una conversación
 app.delete('/api/conversations/:id', (req, res) => {
