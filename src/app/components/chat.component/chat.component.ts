@@ -43,7 +43,7 @@ throw new Error('Method not implemented.');
     this.messages = [];
   }
 
-  // 🔹 Método nuevo para cargar mensajes de una conversación seleccionada
+  // Método nuevo para cargar mensajes de una conversación seleccionada
   cargarMensajes(id: number) {
     this.conversationId = id;
     this.messages = [];

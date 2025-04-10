@@ -28,12 +28,15 @@
 }
 
 .user-message {
-  align-self: flex-end;
   background-color: #ff6a00;
   color: white;
   padding: 10px;
   border-radius: 20px 0px 20px 20px;
-  max-width: 60%;
+}
+
+.user-message-container {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .bot-message-container {
@@ -63,7 +66,7 @@
   <!-- Conversación -->
   <div class="chat-container">
     <div *ngFor="let msg of messages"
-      [ngClass]="{'user-message': msg.sender == 'user', 'bot-message-container': msg.sender == 'bot'}">
+      [ngClass]="{'user-message-container': msg.sender == 'user', 'bot-message-container': msg.sender == 'bot'}">
 
       <!-- Avatar del bot (solo si el mensaje es del bot) -->
       <ng-container *ngIf="msg.sender == 'bot'">
@@ -77,9 +80,11 @@
       </div>
 
       <!-- Mensaje del usuario -->
-      <div class="user-message" *ngIf="msg.sender == 'user'">
-        <p>{{ msg.text }}</p>
-        <span class="fechauser">{{ msg.fecha | date:'HH:mm' }}</span>
+      <div class="user-message-container" *ngIf="msg.sender == 'user'">
+        <div class="user-message">
+          <p>{{ msg.text }}</p>
+          <span class="fechauser">{{ msg.fecha | date:'HH:mm' }}</span>
+        </div>
       </div>
 
     </div>
