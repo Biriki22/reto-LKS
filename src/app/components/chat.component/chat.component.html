@@ -11,7 +11,7 @@
   gap: 20px;
 }
 
-.fecha {
+.timestamp {
   font-size: 0.6rem;
   opacity: 0.9;
   text-align: right;
@@ -19,7 +19,7 @@
   margin-top: 2px;
 }
 
-.fechauser {
+.timestampuser {
   font-size: 0.6rem;
   opacity: 0.9;
   text-align: left;
@@ -76,16 +76,15 @@
       <!-- Mensaje del bot-->
       <div class="bot-message" *ngIf="msg.sender == 'bot'">
         <p>{{ msg.text }}</p>
-        <span class="fecha">{{ msg.fecha | date:'HH:mm' }}</span>
+        <span class="timestamp">{{ msg.timestamp | date:'HH:mm' }}</span>
       </div>
 
       <!-- Mensaje del usuario -->
       <div class="user-message-container" *ngIf="msg.sender == 'user'">
         <div class="user-message">
           <p>{{ msg.text }}</p>
-          <span class="fechauser">{{ msg.fecha | date:'HH:mm' }}</span>
+          <span class="fechauser">{{ msg.timestamp | date:'HH:mm' }}</span>
         </div>
-      </div>
 
     </div>
   </div>

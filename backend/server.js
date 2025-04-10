@@ -11,8 +11,8 @@ app.use(express.json()); // Permite leer JSON en el body
 // Crear una conexión con pool para mejor rendimiento
 const pool = mysql.createPool({
   host: 'localhost',
-  user: 'Markel',
-  password: 'Markel123',
+  user: 'root',
+  password: 'reto123',
   database: 'ver_historial',
   waitForConnections: true,
   connectionLimit: 10,
@@ -114,7 +114,7 @@ app.post('/api/conversations/:id/messages', (req, res) => {
 app.get('/api/conversations/:id/messages', (req, res) => {
   const { id } = req.params;
 
-  const query = 'SELECT * FROM messages WHERE conversation_id = ? ORDER BY fecha ASC';
+  const query = 'SELECT * FROM messages WHERE conversation_id = ? ORDER BY timestamp ASC';
 
   pool.query(query, [id], (err, results) => {
     if (err) {
