@@ -67,7 +67,7 @@ app.post('/api/conversations', (req, res) => {
     // Mensaje de bienvenida con imagen
     const welcomeMessage = {
       sender: 'bot',
-      content: '¡Hola! Soy el asistente virtual de LKS. ¿En qué puedo ayudarte hoy?',
+      content: '¡Hola! Soy el asistente virtual de LKS 🤖. ¿En qué puedo ayudarte hoy ?',
       image_url: 'https://www.lksnext.com/wp-content/uploads/2020/04/lks-logo-positivo.png'
     };
 

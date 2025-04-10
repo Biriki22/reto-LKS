@@ -32,7 +32,7 @@ throw new Error('Method not implemented.');
 
   ngOnInit() {
     this.messages.push({
-      text: '¡Hola! Soy el asistente virtual de LKS. ¿En qué puedo ayudarte hoy?',
+      text: '¡Hola! Soy el asistente virtual de LKS 🤖. ¿En qué puedo ayudarte hoy?',
       sender: 'bot',
       imageUrl: 'https://www.lksnext.com/wp-content/uploads/2020/04/lks-logo-positivo.png',
       timestamp: new Date(),
