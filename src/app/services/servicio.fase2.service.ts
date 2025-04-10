@@ -2,32 +2,38 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+// Interfaz para definir la estructura de un mensaje
 export interface Message {
   sender: string;
   content: string;
 }
 
+// Interfaz para definir la estructura de una conversación
 export interface Conversation {
   id: number;
   titulo: string;
   mensaje: Message[];
 }
 
+// Decorador que marca esta clase como un servicio inyectable
 @Injectable({
   providedIn: 'root'
 })
 export class ServicioFase2Service {
+  // Lista de conversaciones en memoria
   private conversations: Conversation[] = [];
+  // BehaviorSubject para manejar las conversaciones de forma reactiva
   private conversationsSubject = new BehaviorSubject<Conversation[]>([]);
   conversations$ = this.conversationsSubject.asObservable();
 
   private apiUrl = 'http://localhost:3001/api/conversations';
 
+  // Constructor que inyecta el cliente HTTP
   constructor(private http: HttpClient) {
     this.loadConversations();
   }
 
-  // Cargar las conversaciones desde la base de datos
+  // Método para cargar las conversaciones desde la base de datos
   loadConversations() {
     this.http.get<Conversation[]>(this.apiUrl).subscribe((data) => {
       this.conversations = data;
@@ -42,12 +48,13 @@ export class ServicioFase2Service {
     });
   }
 
+  // Método para obtener los mensajes de una conversación específica
   getMessagesByConversation(conversationId: number): Observable<any[]> {
     return this.http.get<any[]>(`http://localhost:3001/api/conversations/${conversationId}/messages`);
   }
 
 
-  // Agregar una nueva conversación (en la base de datos)
+  // Metodo para agregar una nueva conversación (en la base de datos)
   addConversation(titulo: string) {
     if (!titulo.trim()) return;
 
